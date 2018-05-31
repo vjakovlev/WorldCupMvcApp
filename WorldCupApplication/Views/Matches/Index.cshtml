@@ -1,0 +1,94 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<WorldCupApplication.Models.Match>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Session["UserID"] != null)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+else
+{
+}
+
+<p>
+    @using (Html.BeginForm("Index", "Matches", FormMethod.Get))
+    {
+        <b>Search By:</b> @Html.RadioButton("searchBy", "TeamA", true) <text>TeamA</text>
+        @Html.RadioButton("searchBy", "TeamB") <text>TeamB</text>
+        <br />
+        @Html.TextBox("search") <input type="submit" value="Search" />
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Team A
+        </th>
+        <th>
+
+        </th>
+        <th>
+            Team B
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MatchDateTime)
+        </th>
+        <th>
+            @if (Session["UserID"] != null)
+            {
+                <p>Action</p>
+            }
+            else
+            {
+            }
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamA.TeamName)
+            </td>
+            <td>
+                <img src="~/Imgs/vs.png" alt="vs" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamB.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatchDateTime)
+            </td>
+            @if (Session["UserID"] != null)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MatchId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MatchId })
+                </td>
+            }
+            else
+            {
+            }
+        </tr>
+    }
+
+</table>
+
+<div id="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }))
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#pagination").children().children().children().addClass("page-item");
+        $("#pagination").children().children().children().children().addClass("page-link");
+    });
+</script>

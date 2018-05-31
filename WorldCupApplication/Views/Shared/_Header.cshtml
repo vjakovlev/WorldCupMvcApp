@@ -1,0 +1,67 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <a href="~/Home/Index">
+        <img src="~/Imgs/logo.png" id="mainLogo" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">@Html.ActionLink("Matches", "Index", "Matches", null, new { @class = "nav-link" })</li>
+            <li class="nav-item ">@Html.ActionLink("Teams", "Index", "Teams", null, new { @class = "nav-link" })</li>
+            <li class="nav-item ">@Html.ActionLink("Players", "Index", "Players", null, new { @class = "nav-link" })</li>
+            <li class="nav-item ">@Html.ActionLink("Positions", "Index", "Positions", null, new { @class = "nav-link" })</li>
+            <li class="nav-item ">@Html.ActionLink("Continents", "Index", "Continents", null, new { @class = "nav-link" })</li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @if (Session["UserID"] != null)
+                    {
+                        <p style="margin-bottom: 0px;">
+                            Hello, @Session["Firstname"].ToString()
+                            <img src="~/Imgs/arrow.png" />
+                        </p>
+                    }
+                    else
+                    {
+                        <p style="margin-bottom: 0px;">
+                            Admin
+                            <img src="~/Imgs/arrow.png" />
+                        </p>
+                    }
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Users", "Users", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                    <div class="dropdown-divider"></div>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Register", "Register", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Register", "AlreadyRegistered", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                    }
+
+                    @if (!Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Log In", "Login", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Log In", "AlreadyLogged", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                    }
+                    <div class="dropdown-divider"></div>
+                    @Html.ActionLink("Log Out", "Logout", "Account", null, htmlAttributes: new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
