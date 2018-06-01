@@ -10,6 +10,7 @@ using WorldCupApplication.Models;
 
 namespace WorldCupApplication.Controllers
 {
+    // TODO: So ogled na toa sto kontinetite se fiksni nema potreba od strana za nivno manipuliranje, i dovolno e samo da ima model koj e vrzan so baza koja ima static data
     public class ContinentsController : Controller
     {
         private WorldCupDbContext db = new WorldCupDbContext();
@@ -21,6 +22,7 @@ namespace WorldCupApplication.Controllers
             return View(db.Continents.ToList());
         }
 
+        //TODO: Nepotrebena akcija, istata ne e implementirana
         public ActionResult Details(int? id)
         {
             if (id == null)

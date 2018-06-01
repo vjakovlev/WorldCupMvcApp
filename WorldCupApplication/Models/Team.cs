@@ -23,6 +23,7 @@ namespace WorldCupApplication.Models
         [Display(Name = "Continent")]
         public int SelectedContinentId { get; set; }
 
+        // TODO: Ova mislam deka nigde ne go koristis, a vo baza ti kreira nepotrebna kolona vo Matches (Team_TeamId) koja e sekogas null
         public List<Match> Matches { get; set; }
     }
 }

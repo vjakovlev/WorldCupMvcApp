@@ -56,6 +56,8 @@ namespace WorldCupApplication.Controllers
                 if (usr != null)
                 {
                     Session["UserID"] = usr.UserID.ToString();
+
+                    //TODO: Nema potreba toString na string property
                     Session["Username"] = usr.Username.ToString();
                     Session["Firstname"] = usr.Firstname.ToString();
                     FormsAuthentication.SetAuthCookie(user.Username, false);
